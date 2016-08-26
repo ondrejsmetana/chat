@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row" style="padding:15px;box-sizing:border-box;">
+		<div class="col-lg-12">
+			<h1><%= @room.name %></h1>
+			<i><span>Admin: <span class="label label-warning"><%= @room.creator.name %></span>
+
+			</span></i>
+			<div class="bs-component right text-right" >
+				<% @room.users.each do |user|%>
+				<span data-behavior="appear_away" class="label label-success"><%= user.name %></span>
+				<% end %>
+			</div>
+			
+			<div id="room" style="margin-top:15px;" name="<%= @room.id %>">
+				<%= render @room.messages %>
+			</div>
+			<div class="room-messages">
+				<form>
+					<div class="form-group">
+						<textarea room-id="<%= @room.id %>" class="form-control" type="text" data-behavior="chatroom_speaker"></textarea>
+						<small class="text-muted left">Write a message...</small>
+						<button room-id="<%= @room.id %>" class="btn btn-primary btn-lg right" data-behavior="chatroom_speaker">Send</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
