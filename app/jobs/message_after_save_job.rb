@@ -6,7 +6,8 @@ class MessageAfterSaveJob < ActiveJob::Base
 
 		ActionCable.server.broadcast "chat_rooms_#{message.room_id}_channel",
 		message: render_message(message),
-		room_id: message.room_id
+		room_id: message.room_id,
+		notification: false
 	end
 
 	private

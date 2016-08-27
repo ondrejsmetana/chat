@@ -23,16 +23,43 @@ $(document).ready(function(){
 
 
   });
+
+  if ($("#room").length ) {
+    $("#room").scrollTop($("#room").scrollTop() + $(".single").last().position().top)
+  }
+
 });
 
 //
-$(document).on("keypress", "[data-behavior~=chatroom_speaker]", function(e){
+$(document).on("keypress click", "[data-behavior~=chatroom_speaker]", function(e){
 
-  if(e.keyCode=="13")
-  { 
-    App.chatroom.speak(e.target.value,$(e.target).attr("room-id")); 
-    e.target.value="";
+  if(e.keyCode=="13" || e.type=="click")
+  {   
+    if(e.type=="click" && $(e.target).is("div")) return;
+    App.chatroom.speak($("div[data-behavior~=chatroom_speaker]").html(),$("div[data-behavior~=chatroom_speaker]").attr("room-id")); 
+    $("div[data-behavior~=chatroom_speaker]").html("");
     e.preventDefault();
   }
+
+});
+
+$(document).on("click", ".dropdown-menu li a", function(e){
+  if ($("#room").length )
+  {
+
+    var user_id = $(this).attr("name");
+    var room_id = $("#room").attr("name");
+
+    App.chatroom.addUser(user_id,room_id); 
+    e.preventDefault();
+  }
+
+});
+
+$(document).on("click", ".dropdown-menu li a.avatar", function(e){
+
+
+  var avatar_code = $(this).attr("name");
+  $("div[data-behavior~=chatroom_speaker]").append(avatar_code);
 
 });

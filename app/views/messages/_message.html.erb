@@ -4,7 +4,7 @@
 			<div class="col-lg-10 nopadding">
 				<div class="bs-component">
 					<div class="well well-lg">
-						<%= message.text%>
+						<%= message.format_text(message.text).html_safe%>
 					</div>
 				</div>
 			</div>
