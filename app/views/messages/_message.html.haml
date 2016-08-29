@@ -1,0 +1,15 @@
+.single
+  .row
+    .col-lg-12
+      .col-lg-10.nopadding
+        .bs-component
+          .well.well-lg
+            = message.format_text(message.text).html_safe
+      .col-lg-2.nopadding.text-right
+        %p
+          - if message.user.avatar.url.present?
+            = image_tag(message.user.avatar.url, style: "width:50px;border-radius:50%;")
+        %p= message.user.name
+        %span
+          %b= message.beforeDays
+  %hr/

@@ -28,6 +28,10 @@ gem 'redis', '~> 3.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'carrierwave'
 
+gem 'haml', '~> 4.0.5'
+
+gem 'haml-rails'
+
 gem 'sidekiq'
 gem 'sinatra', git: 'https://github.com/sinatra/sinatra', :require => nil# Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

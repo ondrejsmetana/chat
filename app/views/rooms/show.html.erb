@@ -1,75 +1,80 @@
 <div class="container">
-	<div class="row" style="padding:15px;box-sizing:border-box;">
-		<div class="col-lg-12">
-			<div class="row">
-				<div class="col-xs-6">
-					<h1><%= @room.name %></h1>
+  <div class="row" style="padding:15px;box-sizing:border-box;">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-xs-6">
+          <h1><%= @room.name %></h1>
 
-					<span><%= link_to "Delete chatroom", room_path(@room), method: :delete, data: {confirm: "Are you sure?"} %>
-					</span>
-				</div>
-				<div class="col-xs-6">
-					
-					<% unless @to_invite.empty? %>
-					<div class="btn-group right">
-						<a href="#" class="btn btn-warning">Invite user</a>
-						<a href="#" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<% @to_invite.each do |user|%>
-							<li><a name="<%= user.id %>"><%= user.name %></a></li>
-							<% end %>
-						</ul>
-					</div>
-					<% end %>
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="col-xs-6">
-					<i><span>Admin: <span class="label label-warning"><%= @room.creator.name %></span>
+          <span><%= link_to "Delete chatroom", room_path(@room), method: :delete, data: {confirm: "Are you sure?"} %>
+          </span>
+        </div>
+        <div class="col-xs-6">
+          
+          <% unless @to_invite.empty? %>
+          <div class="btn-group right">
+            <a href="#" class="btn btn-warning">Invite user</a>
+            <a href="#" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+            <ul class="dropdown-menu user">
+              <% @to_invite.each do |user|%>
+              <li><a name="<%= user.id %>"><%= user.name %></a></li>
+              <% end %>
+            </ul>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-6">
+          <i><span>Admin: <span class="label label-warning"><%= @room.creator.name %></span>
 
-					</span></i>
-					
-				</div>
-				<div class="col-xs-6">
-					<div class="bs-component right text-right" >
-						<% @room.users.each do |user|%>
-						<i><span>Guests: <span  data-behavior="status" class="label label-success"><%= user.name %></span></span></i>
-						<% end %>
-					</div>
-				</div>
-			</div>
-			<div id="room" style="margin-top:15px;" name="<%= @room.id %>">
-				<%= render @room.messages.order(created_at: :asc) %>
-			</div>
-			<div class="room-messages">
-				<div class="form-group">
-					<div class="row">
-						<div class="col-xs-12">
+          </span></i>
+          
+        </div>
+        <div class="col-xs-6">
+          <div class="bs-component right text-right" >
+            <% @room.users.each do |user|%>
+            <i><span>Guests: <span  data-behavior="status" class="label label-success"><%= user.name %></span></span></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div id="room" style="margin-top:15px;" name="<%= @room.id %>">
+        <%= render @room.messages.order(created_at: :asc) %>
+      </div>
+      <div class="room-messages">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-12">
 
-							<button room-id="<%= @room.id %>" class="btn btn-success btn-md right"  data-behavior="chatroom_speaker">Send</button>
-							<div class="btn-group right" style="margin-right:10px;">
-								<a href="#" class="btn btn-default">Avatars</a>
-								<a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"  aria-expanded="false"><span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<% Avatar.all.each do |avatar|%> 
-									<% @avatar_code = '[image "'+ avatar.avatar_code + '"]' %>
-									<li><a class="avatar" name="<%= @avatar_code %>"><%= image_tag(avatar.image, style: "width:25px;border-radius:50%;") %></a></li>
-									<% end %>
-								</ul>
-							</div>
-						</div>
-					</div>
-					
-					<div style="min-height:100px;margin-top:20px;" contenteditable="true" room-id="<%= @room.id %>" class="form-control" type="text" data-behavior="chatroom_speaker">
-					</div>
-					<small class="text-muted left">Write a message...</small>
+              <button room-id="<%= @room.id %>" class="btn btn-success btn-md right"  data-behavior="chatroom_speaker">Send</button>
+              <div class="btn-group right" style="margin-right:10px;">
+                <a href="#" class="btn btn-default">Avatars</a>
+                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"  aria-expanded="false"><span class="caret"></span></a>
+                <ul class="dropdown-menu avatar">
+                <% @avatars = Avatar.all %>
+                  <% if @avatars.empty? %>
+                  <li><%= link_to "No avatars yet. Create?", new_admin_avatar_path %></li>
+                  <% else %>
+                  <% @avatars.all.each do |avatar|%> 
+                  <% @avatar_code = '[image "'+ avatar.avatar_code + '"]' %>
+                  <li><a class="avatar" name="<%= @avatar_code %>"><%= image_tag(avatar.image, style: "width:25px;border-radius:50%;") %></a></li>
+                  <% end %>
+                   <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div style="min-height:100px;margin-top:20px;" contenteditable="true" room-id="<%= @room.id %>" class="form-control" type="text" data-behavior="chatroom_speaker">
+          </div>
+          <small class="text-muted left">Write a message...</small>
 
-					
-				</div>
-			</div>
-		</div>
-	</div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">

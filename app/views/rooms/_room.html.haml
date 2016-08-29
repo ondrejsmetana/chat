@@ -1,0 +1,5 @@
+%li.list-group-item
+  = link_to "#{room.name}", room_path(room)
+  %span.label.label-success{:style => "float:right;"}
+    %b Users:
+    = (room.users.length + 1)

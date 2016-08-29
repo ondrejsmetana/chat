@@ -1,0 +1,19 @@
+= form_for [:admin, @avatar] do |f|
+  - if avatar.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(avatar.errors.count, "error")
+        prohibited this avatar from being saved:
+      %ul
+        - avatar.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :avatar_code
+    %br/
+    = f.text_field :avatar_code
+  .field
+    = f.label :image
+    %br/
+    = f.file_field :image
+  .actions
+    = f.submit

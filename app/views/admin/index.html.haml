@@ -1,0 +1,11 @@
+.container
+  .row
+    .col-lg-12
+      %p#notice= notice
+      %h1 Admin dashoard
+      %ul.nav.nav-tabs
+        %li.active
+          %a{"aria-expanded" => "true", "data-toggle" => "tab", :href => "#avatar"} Avatars
+      #myTabContent.tab-content{:style => "padding:20px;box-sizing:border-box;"}
+        #avatar.tab-pane.fade.active.in
+          = render :template => 'admin/avatars/index'

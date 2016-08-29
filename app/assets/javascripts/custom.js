@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
-  $(".chatroom").on("click", function(e) {
-
-  });
+  
 
   $(window).scroll(function () {
     var top = $(document).scrollTop();
@@ -43,7 +41,7 @@ $(document).on("keypress click", "[data-behavior~=chatroom_speaker]", function(e
 
 });
 
-$(document).on("click", ".dropdown-menu li a", function(e){
+$(document).on("click", ".dropdown-menu.user li a", function(e){
   if ($("#room").length )
   {
 

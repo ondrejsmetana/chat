@@ -1,0 +1,23 @@
+.row
+  .col-lg-12
+    %p#notice= notice
+    %h1 Manage Avatars
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th #
+          %th Code
+          %th Show
+          %th Edit
+          %th Delete
+      %tbody
+        - @avatars.each do |avatar|
+          %tr
+            - if avatar.image?
+              %td= image_tag(avatar.image, style: "width:25px;border-radius:50%;")
+            %td= avatar.avatar_code
+            %td= link_to 'Show', admin_avatar_path(avatar)
+            %td= link_to 'Edit', edit_admin_avatar_path(avatar)
+            %td= link_to 'Destroy', admin_avatar_path(avatar), method: :delete, data: { confirm: 'Are you sure?' }
+    %br/
+    = link_to 'New Avatar', new_admin_avatar_path

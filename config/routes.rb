@@ -4,10 +4,15 @@ Rails.application.routes.draw do
 	get 'dashboard/index'
 	resources :rooms, only: [:new, :create, :show, :index, :destroy]
 	resources :messages
-	resources :avatars, only: [:new, :create, :show, :index, :destroy, :edit]
+	resources :admin , only: [:index]
 
-	require 'sidekiq/web'
-	mount Sidekiq::Web => '/sidekiq'
+	namespace :admin do
+		resources :avatars, only: [:new, :create, :update, :show, :index, :destroy, :edit]
+	end
+	
+
+	#require 'sidekiq/web'
+	#mount Sidekiq::Web => '/sidekiq'
 	root to: 'dashboard#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount ActionCable.server => "/cable"
